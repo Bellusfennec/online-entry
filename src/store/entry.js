@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
-import entryService from "../services/entry.service";
-import entrySpecificationService from "../services/entrySpecification.service";
-import {
-  createdentrySpecifications,
-  removedentrySpecifications,
-} from "./entrySpecification";
+import entryService from "../service/entry.service";
+import entrySpecificationService from "../service/entry.service";
+// import {
+//   createdentrySpecifications,
+//   removedentrySpecifications,
+// } from "./entrySpecification";
 
 const initialState = {
   entities: [],
@@ -65,9 +65,8 @@ export const createdentry = (payload) => async (dispatch) => {
   dispatch(requested());
   try {
     payload = { ...payload, _id: uuidv4() };
-    payload.specifications = await dispatch(
-      createdentrySpecifications(payload)
-    );
+    payload.specifications = await dispatch();
+    // createdentrySpecifications(payload)
     const { content } = await entryService.create(payload);
     dispatch(created(content));
   } catch (error) {
@@ -80,7 +79,7 @@ export const removedentry = (id) => async (dispatch, getState) => {
   dispatch(requested());
   try {
     const item = entities.find((p) => p._id === id);
-    await dispatch(removedentrySpecifications(item));
+    // await dispatch(removedentrySpecifications(item));
     await entryService.delete(id);
     dispatch(removed(id));
   } catch (error) {

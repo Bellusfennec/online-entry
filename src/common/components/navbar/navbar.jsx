@@ -2,7 +2,7 @@ import NavbarLink from "./navbarLink";
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-between">
+    <nav className="flex justify-between py-5 mx-auto max-w-5xl">
       <div>
         <NavbarLink to="/">оЗапись</NavbarLink>
       </div>

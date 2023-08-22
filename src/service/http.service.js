@@ -1,7 +1,7 @@
 import axios from "axios";
 // import logger from "./log.servive";
 import { toast } from "react-toastify";
-import configFile from "../../config/index.json";
+import configFile from "../config";
 import localStorageService from "./localStorage.service";
 import authService from "./auth.service";
 
