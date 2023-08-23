@@ -4,7 +4,7 @@ const NavbarLink = ({ children, to }) => {
   return (
     <Link
       to={to}
-      className="p-4 font-medium text-gray-600 hover:underline dark:text-gray-500 "
+      className="block p-4 font-medium text-gray-600 hover:underline dark:text-gray-500 "
     >
       {children}
     </Link>

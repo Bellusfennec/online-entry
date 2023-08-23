@@ -1,16 +1,16 @@
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import TextInput from "../../common/components/form/textField";
-import CheckboxField from "../../common/components/form/checkboxField";
-import Button from "../../common/components/form/button";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import Button from "../../common/components/form/button";
+import CheckboxField from "../../common/components/form/checkboxField";
+import TextInput from "../../common/components/form/textField";
+import Loading from "../../common/components/loading/loading";
 import useForm from "../../hook/useForm";
 import {
   getAuthLoadingStatus,
   getUserError,
   registeredUser,
 } from "../../store/user";
-import Loading from "../../common/components/loading/loading";
 
 const SignupPage = () => {
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const SignupPage = () => {
 
   function onSubmit(data) {
     console.log(data);
-    // dispatch(registeredUser(data));
+    dispatch(registeredUser(data));
   }
 
   useEffect(() => {
@@ -56,6 +56,7 @@ const SignupPage = () => {
       ? navigate(`/passport/login?email=${form.email}`)
       : navigate(`/passport/login`);
   };
+
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

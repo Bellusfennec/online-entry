@@ -18,15 +18,14 @@ const useForm = ({ onSubmit, FORM, CONFIG }) => {
   const [focusСonfig, setFocusСonfig] = useState({});
   const [error, setError] = useState({});
   const [isValid, setValid] = useState(null);
-  console.log("render form");
+  // console.log("render form");
 
   // обработчик изменений
-  const handlerChange = useCallback((e) => {
+  const handlerChange = (e) => {
     const { value, name } = e.target;
-    console.log(form, { [name]: value });
 
     setForm({ ...form, [name]: value });
-  }, []);
+  };
 
   // обработчик кнопки Submit
   const handlerSubmit = (event) => {

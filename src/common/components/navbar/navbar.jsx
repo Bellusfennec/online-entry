@@ -1,18 +1,27 @@
+import { useSelector } from "react-redux";
+import { getLoggedStatus } from "../../../store/user";
 import NavbarLink from "./navbarLink";
+import NavbarUser from "./navbarUser";
 
 const Navbar = () => {
+  const isLogged = useSelector(getLoggedStatus());
+
   return (
-    <nav className="flex justify-between py-5 mx-auto max-w-5xl">
+    <nav className="flex justify-between">
       <div>
         <NavbarLink to="/">оЗапись</NavbarLink>
       </div>
-      <div>
-        <NavbarLink to="#">Расписание</NavbarLink>
-        <NavbarLink to="#">Запись</NavbarLink>
-        <NavbarLink to="#">Архив</NavbarLink>
+      <div className="flex">
+        <NavbarLink to="/entry">Запись</NavbarLink>
+        <NavbarLink to="/schedule">Расписание</NavbarLink>
+        <NavbarLink to="/archive">Архив</NavbarLink>
       </div>
       <div>
-        <NavbarLink to="/passport/login">Вход</NavbarLink>
+        {isLogged && <NavbarLink to="/passport/profile">Профиль</NavbarLink>}
+        {!isLogged && <NavbarLink to="/passport/login">Вход</NavbarLink>}
+      </div>
+      <div>
+        <NavbarUser />
       </div>
     </nav>
   );

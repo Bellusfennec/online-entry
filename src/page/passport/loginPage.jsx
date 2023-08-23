@@ -1,8 +1,59 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import TextInput from "../../common/components/form/textField";
 import Button from "../../common/components/form/button";
+import { useEffect } from "react";
+import {
+  getAuthLoadingStatus,
+  getUserError,
+  loggedInUser,
+} from "../../store/user";
+import useForm from "../../hook/useForm";
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "../../common/components/loading/loading";
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+  const isLoading = useSelector(getAuthLoadingStatus());
+  const userError = useSelector(getUserError());
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const CONFIG = {
+    email: { isRequared: "" },
+    password: { isRequared: "" },
+  };
+  const email = searchParams?.get("email") ? searchParams?.get("email") : "";
+  const FORM = { email, password: "" };
+  const {
+    handlerChange,
+    form,
+    setError,
+    handlerSubmit,
+    isValid,
+    placeholder,
+    name,
+    error,
+  } = useForm({
+    onSubmit,
+    FORM,
+    CONFIG,
+  });
+
+  function onSubmit(data) {
+    console.log(data);
+    dispatch(loggedInUser(data));
+  }
+
+  useEffect(() => {
+    if (userError) {
+      setError(userError);
+    }
+  }, [userError]);
+
+  const toRegistration = () => {
+    form.email.length > 0
+      ? navigate(`/passport/registration?email=${form.email}`)
+      : navigate(`/passport/registration`);
+  };
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -17,20 +68,28 @@ const LoginPage = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Войти в аккаунт
             </h1>
-            <form className="space-y-4 md:space-y-6" action="#">
+            <form className="space-y-4 md:space-y-6" onSubmit={handlerSubmit}>
               <TextInput
                 name="email"
                 placeholder="name@company.com"
                 label="Ваш email"
                 type="email"
+                autoComplete={name.email}
+                value={form.email}
+                error={error.email}
+                onChange={handlerChange}
               />
               <TextInput
-                name="password"
                 placeholder="••••••••"
                 label="Пароль"
                 type="password"
+                name={name.password}
+                autoComplete={name.password}
+                value={form.password}
+                error={error.password}
+                onChange={handlerChange}
               />
-              <Button>Войти</Button>
+              <Button>{isLoading ? <Loading /> : "Войти"}</Button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Нет аккаунта?{" "}
                 <Link

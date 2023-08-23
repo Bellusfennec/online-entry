@@ -1,2 +1,2 @@
-import Loading from "./Loading.jsx";
+import Loading from "./loading.jsx";
 export { Loading };
