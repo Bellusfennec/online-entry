@@ -4,13 +4,13 @@ import { getLoggedStatus } from "../../store/user";
 
 const PassportLayout = () => {
   const location = useLocation();
-  const page = location.pathname.split("/")[2];
+  const pathname = location.pathname;
   const isLogged = useSelector(getLoggedStatus());
 
-  if (isLogged && (page === "login" || page === "signup")) {
+  if (isLogged && (pathname.includes("login") || pathname.includes("signup"))) {
     return <Navigate to="/passport/profile" />;
   }
-  if (!isLogged && page === "profile") {
+  if (!isLogged && pathname.includes("profile")) {
     return <Navigate to="/passport/login" />;
   }
 

@@ -39,7 +39,6 @@ const LoginPage = () => {
   });
 
   function onSubmit(data) {
-    console.log(data);
     dispatch(loggedInUser(data));
   }
 

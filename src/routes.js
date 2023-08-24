@@ -8,6 +8,9 @@ import UserProfile from "./page/passport/userProfile.jsx";
 import SchedulePage from "./page/home/schedulePage.jsx";
 import ArchivePage from "./page/home/archivePage.jsx";
 import EntryPage from "./page/home/entryPage.jsx";
+import AdminPage from "./page/admin/adminPage.jsx";
+import AdminLayout from "./page/admin/adminLayout.jsx";
+import EntryEdit from "./page/admin/entryEdit.jsx";
 
 const AppRoutes = () => {
   return (
@@ -16,9 +19,13 @@ const AppRoutes = () => {
       <Route path="entry" element={<EntryPage />} />
       <Route path="schedule" element={<SchedulePage />} />
       <Route path="archive" element={<ArchivePage />} />
+      <Route path="admin" element={<AdminLayout />}>
+        <Route index element={<AdminPage />} />
+        <Route path=":entryId" element={<EntryEdit />} />
+      </Route>
       <Route path="passport/:page?" element={<PassportLayout />}>
         <Route index element={<Navigate to="login" />} />
-        <Route path="*" element={<Navigate to="login" />} />
+        <Route path="*" element={<Navigate to="profile" />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="signup" element={<SignupPage />} />
         <Route path="profile" element={<UserProfile />} />

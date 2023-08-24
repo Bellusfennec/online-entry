@@ -16,13 +16,16 @@ const Navbar = () => {
         <NavbarLink to="/schedule">Расписание</NavbarLink>
         <NavbarLink to="/archive">Архив</NavbarLink>
       </div>
-      <div>
-        {isLogged && <NavbarLink to="/passport/profile">Профиль</NavbarLink>}
-        {!isLogged && <NavbarLink to="/passport/login">Вход</NavbarLink>}
-      </div>
-      <div>
-        <NavbarUser />
-      </div>
+      {!isLogged && (
+        <div>
+          <NavbarLink to="/passport/login">Вход</NavbarLink>
+        </div>
+      )}
+      {isLogged && (
+        <div>
+          <NavbarUser />
+        </div>
+      )}
     </nav>
   );
 };

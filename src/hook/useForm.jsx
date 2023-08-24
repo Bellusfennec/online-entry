@@ -31,10 +31,12 @@ const useForm = ({ onSubmit, FORM, CONFIG }) => {
   const handlerSubmit = (event) => {
     event.preventDefault();
 
-    onSubmit(form);
-    setForm(FORM);
-    setFocusСonfig({});
-    setError({});
+    if (isValid) {
+      onSubmit(form);
+      setForm(FORM);
+      setFocusСonfig({});
+      setError({});
+    }
   };
 
   // обработчик отпускания фокуса

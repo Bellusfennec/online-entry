@@ -8,6 +8,7 @@ import {
   loadedUser,
 } from "../../store/user";
 import { Loading } from "../components/loading";
+import { loadEntries } from "../../store/entry";
 
 const AppLoader = ({ children }) => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const AppLoader = ({ children }) => {
   const isLoading = useSelector(getUserLoadingStatus());
 
   useEffect(() => {
+    dispatch(loadEntries());
     if (isLogged) dispatch(loadedUser());
   }, [isLogged]);
 

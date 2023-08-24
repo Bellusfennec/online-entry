@@ -40,6 +40,7 @@ http.interceptors.request.use(
 );
 
 function transformData(data) {
+  // if (data === "null") return [];
   return !data?._id ? Object.keys(data).map((key) => ({ ...data[key] })) : [];
   // return data ? Object.keys(data).map((key) => ({ ...data[key] })) : [];
 }
