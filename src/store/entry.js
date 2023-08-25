@@ -94,7 +94,7 @@ export function removeentry(id) {
   return removed({ id });
 }
 
-export const getentryById = (id) => (state) => {
+export const getEntryById = (id) => (state) => {
   if (state.entry.entities) {
     return state.entry.entities.find((p) => p._id === id);
   }

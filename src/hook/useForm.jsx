@@ -9,16 +9,13 @@ import {
 } from "../util/form";
 
 const useForm = ({ onSubmit, FORM, CONFIG }) => {
-  FORM = FORM ? FORM : {};
-  CONFIG = CONFIG ? CONFIG : {};
-  const [form, setForm] = useState(FORM);
-  const [name, setName] = useState(createName(FORM));
-  const initPlaceholder = createPlaceholder(FORM, CONFIG);
-  const [placeholder, setPlaceholder] = useState(initPlaceholder);
+  const [form, setForm] = useState({});
+  const [name, setName] = useState({});
+  const [placeholder, setPlaceholder] = useState({});
   const [focusСonfig, setFocusСonfig] = useState({});
   const [error, setError] = useState({});
   const [isValid, setValid] = useState(null);
-  // console.log("render form");
+  console.log("render", "form:", form, "FORM:", FORM);
 
   // обработчик изменений
   const handlerChange = (e) => {
@@ -54,11 +51,24 @@ const useForm = ({ onSubmit, FORM, CONFIG }) => {
 
   // обновление ошибок
   useEffect(() => {
+    console.log("useEffect valid");
     const errors = validator(form, focusСonfig);
     setError(errors);
     const totalErrors = validator(form, CONFIG);
     setValid(!totalError(totalErrors));
   }, [form, focusСonfig]);
+
+  const setInitialForm = useCallback(() => {
+    console.log("callback setInitialForm");
+    CONFIG = CONFIG ? CONFIG : {};
+    setForm(FORM);
+    setName(createName(FORM));
+    setPlaceholder(createPlaceholder(FORM, CONFIG));
+  }, [FORM]);
+
+  useEffect(() => {
+    setInitialForm();
+  }, [FORM]);
 
   return {
     form,
